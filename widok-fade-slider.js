@@ -111,7 +111,6 @@ const createFadeSlider = (function () {
           this.options.bulletContainer
             .find(this.options.bulletSelector)
             .each((index, element) => {
-              console.log(element);
               this.bullets.push($(element));
             });
         }
