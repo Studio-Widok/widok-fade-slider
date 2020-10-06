@@ -1,0 +1,13 @@
+{
+  "name": "widok-fade-slider",
+  "version": "1.0.0",
+  "description": "",
+  "main": "widok-fade-slider.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cash-dom": "^8.1.0",
+    "widok-scroll-item": "github:weterynarzfred/widok-scroll-item"
+  }
+}
