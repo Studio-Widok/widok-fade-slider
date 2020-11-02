@@ -225,6 +225,7 @@ const createFadeSlider = (function () {
 
   return function (container, options) {
     if (options === undefined) options = {};
+    const fadeSliders = [];
     $(container).each((index, element) => {
       const slider = new Slider(element, options);
       if (slider.id === undefined || fadeSliders[slider.id] !== undefined) {
@@ -232,7 +233,7 @@ const createFadeSlider = (function () {
       }
       fadeSliders[slider.id] = slider;
     });
-    return slider;
+    return fadeSliders;
   };
 })();
 
