@@ -86,7 +86,7 @@ const createFadeSlider = (function () {
     prepareBullets() {
       this.bullets = [];
       if (this.options.bulletContainer === undefined) {
-        const bulletList = $(document.createElement('div'))
+        this.options.bulletContainer = $(document.createElement('div'))
           .addClass('slider-bullets')
           .appendTo(this.element);
         this.bullets = [];
@@ -94,7 +94,7 @@ const createFadeSlider = (function () {
           this.bullets.push(
             $(document.createElement('div'))
               .addClass('slider-bullet')
-              .appendTo(bulletList)
+              .appendTo(this.options.bulletContainer)
           );
         });
       } else {
