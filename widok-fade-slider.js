@@ -17,7 +17,7 @@ import $ from 'cash-dom';
 import createScrollItem from 'widok-scroll-item';
 
 const createFadeSlider = (function () {
-  fadeSliders = [];
+  const fadeSliders = [];
   class Slider {
     constructor(element, options) {
       this.applyCss(element);
