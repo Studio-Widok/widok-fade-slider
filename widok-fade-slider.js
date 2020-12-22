@@ -1,20 +1,20 @@
 /**
  * version:	1.1
  * add new Slider
- * @param {selector} container slider container
+ * @param {string} container slider container
  * @param {object} options extra options
  * @param {function} options.onChange callback function which is executed on change
  * @param {boolean} option.adjustHeight defalut = false
- * @param {selector} option.bulletContainer
- * @param {selector} option.bulletSelector
+ * @param {string} option.bulletContainer
+ * @param {string} option.bulletSelector
  * @param {integer} option.interval
  * @returns {Object} Slider
  * containerIn '.lb'
  * arrows '.slider-arrows' '.slider-left' '.slider-right'
  */
 
-const $ = require('cash-dom');
-const createScrollItem = require('widok-scroll-item');
+import $ from 'cash-dom';
+import createScrollItem from 'widok-scroll-item';
 
 const createFadeSlider = (function () {
   fadeSliders = [];
@@ -237,4 +237,4 @@ const createFadeSlider = (function () {
   };
 })();
 
-if (typeof module !== 'undefined') module.exports = createFadeSlider;
+export default createFadeSlider;

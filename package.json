@@ -8,6 +8,6 @@
   "license": "ISC",
   "dependencies": {
     "cash-dom": "^8.1.0",
-    "widok-scroll-item": "github:weterynarzfred/widok-scroll-item"
+    "widok-scroll-item": "github:studio-widok/widok-scroll-item"
   }
 }
