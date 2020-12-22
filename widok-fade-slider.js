@@ -202,8 +202,8 @@ const createFadeSlider = (function () {
 
   $(window).on('load', load);
   window.addEventListener('layoutChange', refresh);
-  window.addEventListener('keydown', event => {
-    if (event.which !== 39 && event.which !== 37) return;
+  window.addEventListener('keyup', event => {
+    if (event.code !== 'ArrowRight' && event.code !== 'ArrowLeft') return;
     if (fadeSliders.length === 0) return;
     let closest;
     let closestDiff = Infinity;
@@ -216,9 +216,9 @@ const createFadeSlider = (function () {
         break;
       }
     }
-    if (event.which === 39) {
+    if (event.code === 'ArrowRight') {
       closest.next();
-    } else if (event.which === 37) {
+    } else if (event.code === 'ArrowLeft') {
       closest.prev();
     }
   });
