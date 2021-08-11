@@ -12,6 +12,7 @@ body {
 #slider {
   box-shadow: 0 0 0 3px #f55;
   width: 90%;
+  height: 90vh;
 
   .slider-single {
     font-size: 6em;
@@ -24,6 +25,7 @@ body {
     background-color: #eee;
     box-shadow: 0 0 0 1px #555 inset;
     opacity: 0;
+    transition: 0.3s;
 
     &.current-slide {
       opacity: 1;
