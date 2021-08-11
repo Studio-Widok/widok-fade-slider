@@ -18,8 +18,8 @@ class Slider {
       slideSelector: '.slider-single',
       adjustHeight: false,
     };
-    this.applyCss(options.wrap);
     Object.assign(this.options, options);
+    this.applyCss(this.options.wrap);
     if (this.options.interval !== undefined) {
       this.intervalHandle = setInterval(
         this.next.bind(this),
