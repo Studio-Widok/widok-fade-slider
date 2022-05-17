@@ -7,6 +7,7 @@ import createScrollItem from 'widok-scroll-item';
  * @property {string} slideSelector
  * @property {string} wrap selector of the slider container
  * @property {boolean} adjustHeight defalut = false
+ * @property {boolean} useKeys defalut = false
  * @property {string} bulletContainer
  * @property {string} bulletSelector
  * @property {integer} interval
@@ -17,6 +18,7 @@ class Slider {
     this.options = {
       slideSelector: '.slider-single',
       adjustHeight: false,
+      useKeys: false,
     };
     Object.assign(this.options, options);
     this.applyCss(this.options.wrap);
@@ -153,7 +155,7 @@ class Slider {
       this.bullets[previous].removeClass('active');
       this.bullets[n].addClass('active');
       if (this.options.onChange !== undefined) {
-        this.options.onChange.call(this, n);
+        this.options.onChange.call(this, n, previous);
       }
       this.c = n;
       window.dispatchEvent(
@@ -195,26 +197,29 @@ function load() {
   }
 }
 
-const fadeSliders = [];
+const fadeSliders = {};
 $(window).on('load', load);
 window.addEventListener('layoutChange', refresh);
 window.addEventListener('keyup', event => {
   if (event.code !== 'ArrowRight' && event.code !== 'ArrowLeft') return;
-  if (fadeSliders.length === 0) return;
+  if (Object.keys(fadeSliders).length === 0) return;
   let closest;
   let closestDiff = Infinity;
-  for (const slider of fadeSliders) {
-    const diff = Math.abs(slider.scrollItem.screenPos(0.5) - 0.5);
+  for (const sliderId in fadeSliders) {
+    if (!fadeSliders[sliderId].options.useKeys) continue;
+    const diff = Math.abs(fadeSliders[sliderId].scrollItem.screenPos(0.5) - 0.5);
     if (diff < closestDiff) {
       closestDiff = diff;
-      closest = slider;
+      closest = fadeSliders[sliderId];
     } else {
       break;
     }
   }
   if (event.code === 'ArrowRight') {
+    clearInterval(closest.intervalHandle);
     closest.next();
   } else if (event.code === 'ArrowLeft') {
+    clearInterval(closest.intervalHandle);
     closest.prev();
   }
 });
@@ -222,13 +227,7 @@ window.addEventListener('keyup', event => {
 /**
  * Creates a fade slider
  * arrow selectors '.slider-arrows' '.slider-left' '.slider-right'
- * @param {string} container slider container
- * @param {object} options extra options
- * @param {function} options.onChange callback function which is executed on change
- * @param {boolean} options.adjustHeight defalut = false
- * @param {string} options.bulletContainer
- * @param {string} options.bulletSelector
- * @param {integer} options.interval
+ * @param {options} options
  * @returns {Object} slider object
  */
 function createFadeSlider(options) {
