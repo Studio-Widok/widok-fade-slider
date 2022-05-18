@@ -6,7 +6,7 @@ import createScrollItem from 'widok-scroll-item';
  * @property {function} onChange callback function which is executed on change
  * @property {string} slideSelector
  * @property {string} wrap selector of the slider container
- * @property {boolean} adjustHeight defalut = false, ignored if adjustHeightToSlide is set
+ * @property {boolean} adjustHeight defalut = false
  * @property {boolean} adjustHeightToSlide defalut = false
  * @property {boolean} useKeys defalut = false
  * @property {string} bulletContainer
@@ -218,8 +218,6 @@ window.addEventListener('keyup', event => {
     if (diff < closestDiff) {
       closestDiff = diff;
       closest = fadeSliders[sliderId];
-    } else {
-      break;
     }
   }
   if (event.code === 'ArrowRight') {
