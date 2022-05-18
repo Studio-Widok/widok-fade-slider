@@ -6,7 +6,8 @@ import createScrollItem from 'widok-scroll-item';
  * @property {function} onChange callback function which is executed on change
  * @property {string} slideSelector
  * @property {string} wrap selector of the slider container
- * @property {boolean} adjustHeight defalut = false
+ * @property {boolean} adjustHeight defalut = false, ignored if adjustHeightToSlide is set
+ * @property {boolean} adjustHeightToSlide defalut = false
  * @property {boolean} useKeys defalut = false
  * @property {string} bulletContainer
  * @property {string} bulletSelector
@@ -18,6 +19,7 @@ class Slider {
     this.options = {
       slideSelector: '.slider-single',
       adjustHeight: false,
+      adjustHeightToSlide: false,
       useKeys: false,
     };
     Object.assign(this.options, options);
@@ -131,13 +133,16 @@ class Slider {
   }
 
   refresh() {
-    if (this.options.adjustHeight) {
+    if (this.options.adjustHeight && !this.options.adjustHeightToSlide) {
       this.bar.css({ height: 0 });
       let h = 0;
       this.slides.each((index, element) => {
         h = Math.max($(element).height(), h);
       });
       this.h = h;
+      this.setHeight();
+    } else if (this.options.adjustHeightToSlide) {
+      this.h = this.slides.eq(this.c).height();
       this.setHeight();
     }
     this.scrollItem._onResize();
@@ -163,6 +168,8 @@ class Slider {
           detail: { slider: this, prev: previous },
         })
       );
+
+      if (this.options.adjustHeightToSlide) this.refresh();
     }
   }
 
