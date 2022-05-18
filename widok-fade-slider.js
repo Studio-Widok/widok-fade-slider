@@ -40,6 +40,7 @@ class Slider {
     this.slides.eq(0).addClass('current-slide');
     this.prepareArrows();
     this.prepareBullets();
+    this.checkArrows();
   }
 
   applyCss(element) {
@@ -67,16 +68,12 @@ class Slider {
     if (this.arrows.length > 0) {
       this.left = this.arrows.find('.slider-left');
       this.right = this.arrows.find('.slider-right');
-      this.left.click(() => {
-        if (this.options.interval) {
-          clearInterval(this.intervalHandle);
-        }
+      this.left.on('click', () => {
+        if (this.options.interval) clearInterval(this.intervalHandle);
         this.prev();
       });
-      this.right.click(() => {
-        if (this.options.interval) {
-          clearInterval(this.intervalHandle);
-        }
+      this.right.on('click', () => {
+        if (this.options.interval) clearInterval(this.intervalHandle);
         this.next();
       });
     }
@@ -152,6 +149,17 @@ class Slider {
     this.bar.css({ height: this.h });
   }
 
+  checkArrows() {
+    if (this.left) {
+      if (this.c === 0) this.left.addClass('disabled');
+      else this.left.removeClass('disabled');
+    }
+    if (this.right) {
+      if (this.c === this.slides.length - 1) this.right.addClass('disabled');
+      else this.right.removeClass('disabled');
+    }
+  }
+
   goTo(n) {
     if (this.c !== n) {
       const previous = this.c;
@@ -169,6 +177,7 @@ class Slider {
         })
       );
 
+      this.checkArrows();
       if (this.options.adjustHeightToSlide) this.refresh();
     }
   }
